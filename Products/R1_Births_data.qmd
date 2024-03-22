@@ -1,0 +1,538 @@
+---
+title: "CIIIA - Reporte 1"
+subtitle: "Exploración BBDD-Nacimientos" 
+date: last-modified
+date-format: 'DD [de] MMMM, YYYY'
+last-modified:
+title-block-banner: true
+format: 
+  html:
+    css: "css_reports/style.css"
+    page-layout: full
+    embed-resources: true
+    smooth-scroll: true
+    fontcolor: black
+    toc: true
+    toc-location: left
+    toc-title: Summary
+    code-copy: true
+    code-link: true
+    code-fold: true
+    code-tools: true
+    code-summary: "Click para ver el código"
+    anchor-sections: true
+    code-overflow: wrap
+    fig-cap-location: top
+lang: es
+---
+
+Ajustes de inicio.
+
+```{r}
+#| code-fold: TRUE
+#| warning: false
+#| message: false
+#| results: 'hide'
+
+source("../Code/0.1 Functions.R")
+source("../Code/0.2 Settings.R")
+```
+
+```{r}
+#| code-fold: TRUE
+#| warning: false
+#| message: false
+#| results: 'hide'
+
+# Info
+data_out <- "../Data/Output/" # Path
+file <- "births_2011_2020" # file
+
+# Load file 
+load(paste0(data_out, file, ".RData"))
+```
+
+
+## Notas del procesamiento de los datos
+
+- La comuna de Coihaique tiene dos estaciones: coyhaique y balmaceda. Por lo tanto, serían 26 comunas, no 27, ya que están asociadas solo a un código de comuna. Los datos descriptivos sugieren que la comuna de balmaceda es más fría. ¿Promediamos ambas estaciones? 
+
+- Base de datos de análisis está filtrada por año de nacimiento 2011-2020 y código de 26 comunas. El número de observaciones es de: `r dim(births)[1]`. 
+
+## Exploración de la tabla de datos
+
+### Exploración inicial
+
+Tenemos `r dim(births)[1]` observaciones y `r dim(births)[2]` variables. Todas estas variables son de tipo numérico que se categorizarán en función del análisis. 
+
+```{r}
+#| code-fold: TRUE
+#| warning: false
+#| message: false
+
+glimpse(births)
+```
+
+Se recodifican valores que son considerados como missing para variables de interés: 
+
+```{r}
+#| code-fold: false
+#| warning: false
+#| message: false
+
+births <- births %>% 
+  mutate(semanas=if_else(semanas==99, NA_real_, semanas),
+         peso=if_else(peso==9999, NA_real_, peso),
+         sexo=if_else(sexo==9, NA_real_, sexo),
+         talla=if_else(talla==99, NA_real_, talla),
+         edad_madre=if_else(edad_madre==99, NA_real_, edad_madre),
+         nivel_madre=if_else(nivel_madre==9, NA_real_, nivel_madre),
+         activ_madre=if_else(activ_madre %in% c(3,9), NA_real_, activ_madre),
+         edad_padre=if_else(edad_padre==99, NA_real_, edad_padre),
+         nivel_padre=if_else(nivel_padre==9, NA_real_, nivel_padre),
+         activ_padre=if_else(activ_padre %in% c(3,9), NA_real_, activ_padre),
+         tipo_parto=if_else(tipo_parto==9, NA_real_, tipo_parto)
+         ) 
+births <- births[,c(1:9, 15, 10, 11, 14, 12, 13, 16)]
+```
+
+
+
+### Valores extremos 
+
+Se evaluarán los casos extremos para dos variables de interés: **semanas de gestación** y **peso al nacer**.
+
+```{r}
+#| code-fold: TRUE
+#| warning: false
+#| message: false
+#| fig-cap: "Gráficos descriptivos para semanas de gestación"
+#| fig-width: 10
+#| fig-height: 5
+
+g1 <- ggplot(births, aes(x=semanas)) + 
+  geom_histogram(alpha=0.5, bins=50, fill = "deepskyblue3", color="deepskyblue3") +
+  scale_x_continuous(breaks=seq(0, 50, by=10)) + 
+  labs(x="Semanas de gestación", y="Frecuencia", tag="A)") +
+  theme_light() +
+  theme(panel.background = element_rect(fill = "white"), 
+        panel.grid = element_blank(),
+        legend.position = "top",
+        legend.background = element_rect(fill = alpha("white", 0.0), color = alpha("white", 0.5)),
+        strip.background = element_rect(fill="white", color="white"), 
+        strip.text.x = element_text(size=10, hjust = 0, color="black"),
+        legend.key.width = unit(1.5,"cm"),
+        plot.tag=element_text(size=16, face="bold"),
+        axis.line.x = element_blank())
+
+g2 <- ggplot(births, aes(y=semanas)) + 
+  stat_boxplot(geom = "errorbar", width = 0.15, color = 1) +  
+  geom_boxplot(fill = "gray", alpha = 0.5, color = "black", width=0.7,
+               outlier.colour = 2, outlier.fill = "white", outlier.size = .75) +
+  scale_y_continuous(breaks=seq(0, 100, by=5)) +
+  labs(x="Semanas de gestación", y=NULL, tag="B)", x="") +
+  theme_light() +
+  theme(panel.background = element_rect(fill = "white"), 
+        panel.grid = element_blank(),
+        legend.position = "top",
+        legend.background = element_rect(fill = alpha("white", 0.0), color = alpha("white", 0.5)),
+        strip.background = element_rect(fill="white", color="white"), 
+        strip.text.x = element_text(size=10, hjust = 0, color="black"),
+        legend.key.width = unit(1.5,"cm"),
+        plot.tag=element_text(size=16, face="bold"),
+        axis.line.x = element_blank())
+
+ggpubr::ggarrange(g1, g2, ncol = 2,  widths = c(2, 1))
+```
+
+
+```{r}
+#| code-fold: TRUE
+#| warning: false
+#| message: false
+#| fig-cap: "Gráficos descriptivos para peso al nacer"
+#| fig-width: 10
+#| fig-height: 5
+
+g3 <- ggplot(births, aes(x=peso)) + 
+  geom_histogram(alpha=0.5, bins=150, fill = "deepskyblue3", color="deepskyblue3") +
+  scale_x_continuous(breaks=seq(0, 10000, by=1000)) + 
+  labs(x="Peso (gr.)", y="Frecuencia", tag="A)") +
+  theme_light() +
+  theme(panel.background = element_rect(fill = "white"), 
+        panel.grid = element_blank(),
+        legend.position = "top",
+        legend.background = element_rect(fill = alpha("white", 0.0), color = alpha("white", 0.5)),
+        strip.background = element_rect(fill="white", color="white"), 
+        strip.text.x = element_text(size=10, hjust = 0, color="black"),
+        legend.key.width = unit(1.5,"cm"),
+        plot.tag=element_text(size=16, face="bold"),
+        axis.line.x = element_blank())
+
+g4 <- ggplot(births, aes(y=peso)) + 
+  stat_boxplot(geom = "errorbar", width = 0.15, color = 1) +  
+  geom_boxplot(fill = "gray", alpha = 0.5, color = "black", width=0.7,
+               outlier.colour = 2, outlier.fill = "white", outlier.size = .75) +
+  scale_y_continuous(breaks=seq(0, 10000, by=1000)) + 
+  labs(y="Peso (gr.)", y=NULL, tag="B)", x="") +
+  theme_light() +
+  theme(panel.background = element_rect(fill = "white"), 
+        panel.grid = element_blank(),
+        legend.position = "top",
+        legend.background = element_rect(fill = alpha("white", 0.0), color = alpha("white", 0.5)),
+        strip.background = element_rect(fill="white", color="white"), 
+        strip.text.x = element_text(size=10, hjust = 0, color="black"),
+        legend.key.width = unit(1.5,"cm"),
+        plot.tag=element_text(size=16, face="bold"),
+        axis.line.x = element_blank())
+
+ggpubr::ggarrange(g3, g4, ncol = 2,  widths = c(2, 1))
+```
+
+
+```{r}
+#| code-fold: TRUE
+#| warning: false
+#| message: false
+#| tbl-cap: "Estadísticos descriptivos para las variables de interés"
+
+vars <- c("semanas", "peso")
+table <- tibble()
+for (i in vars){
+  # Asegúrate de que i es convertido a simbolo con as.symbol o rlang::sym
+  des_res <- descriptives(x = !!rlang::sym(i), data = births)
+  table <- dplyr::bind_rows(table, des_res)
+}
+
+table$Variable <- c("Gestación (semanas)", "Peso (gr.)")
+
+flextable::flextable(table)
+```
+
+
+### Datos faltantes 
+
+Exploración de datos faltantes para la **información del padre y madre**:
+
+```{r}
+#| code-fold: TRUE
+#| warning: false
+#| message: false
+#| fig-cap: "Exploración de missing con combinaciones de covariables"
+#| fig-width: 10
+#| fig-height: 5
+covariables <- births[, c(11:16)]
+
+g5 <- vis_miss(births, warn_large_data = FALSE) 
+g6 <- gg_miss_upset(births, order.by = "freq", nintersects = NA, empty.intersections=TRUE)
+                    
+g5
+g6
+```
+
+```{r}
+#| code-fold: TRUE
+#| warning: false
+#| message: false
+#| fig-cap: "% de Datos faltantes en variables por año"
+#| fig-width: 10
+#| fig-height: 5
+
+missing_data <- births %>%
+  select(4:7, 10:16) %>% 
+  pivot_longer(cols = -ano_nac, names_to = "variable", values_to = "valor") %>%
+  group_by(ano_nac, variable) %>%
+  summarise(porcentaje_missing = mean(is.na(valor)) * 100) %>%
+  ungroup()
+
+ggplot(missing_data, aes(x = factor(ano_nac), y = porcentaje_missing, group = variable)) +
+  geom_line(aes(color = variable)) + 
+  geom_point(aes(color = variable)) + 
+  facet_wrap(~ variable, scales = "free_y", ncol=5) + 
+  theme_light() +
+  labs(x = "Año", y = "% de Datos Faltantes") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1), 
+        legend.title = element_blank(),
+        legend.position = "none", 
+        strip.background = element_blank(),
+        strip.text = element_text(color="black")) 
+```
+
+```{r}
+#| code-fold: TRUE
+#| warning: false
+#| message: false
+#| fig-cap: "% de Datos faltantes en variables por comuna"
+#| fig-width: 10
+#| fig-height: 10
+
+comunas <- chilemapas::codigos_territoriales %>% 
+  mutate(codigo_comuna=as.numeric(codigo_comuna),
+         codigo_provincia=as.numeric(codigo_provincia),
+         codigo_region=as.numeric(codigo_region)
+         )
+
+births <- births %>% 
+  left_join(comunas, by=c("comuna"="codigo_comuna"))
+
+missing_data <- births %>%
+  select(5:7, 10:16, 17) %>% 
+  pivot_longer(cols = -nombre_comuna, names_to = "variable", values_to = "valor") %>%
+  group_by(nombre_comuna, variable) %>%
+  summarise(porcentaje_missing = mean(is.na(valor)) * 100) %>%
+  ungroup()
+
+ggplot(missing_data, aes(x = factor(nombre_comuna), y = porcentaje_missing, fill = variable)) +
+  geom_col() +
+  coord_flip() +
+  facet_wrap(~ variable, scales = "free_y", ncol=5) + 
+  theme_light() +
+  labs(x = "Comuna", y = "% de Datos Faltantes") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1), 
+        legend.title = element_blank(),
+        legend.position = "none", 
+        strip.background = element_blank(),
+        strip.text = element_text(color="black")) 
+```
+
+### Estadísticos Descriptivos 
+
+Para estos análisis construimos una variable nueva para identificar los nacimientos con bajo peso (<2500 gr.). Además, construimos una variable que identifican las macrozonas. 
+
+```{r}
+#| code-fold: TRUE
+#| warning: false
+#| message: false
+
+births <- births %>% 
+  mutate(
+    low_weight=case_when(
+      peso<2500 ~ 1,
+      peso>=2500 ~ 0,
+      TRUE ~ NA_real_
+      ),
+    zona = case_when(
+           nombre_region %in% c("Arica y Parinacota", "Tarapacá", "Antofagasta", "Atacama", "Coquimbo") ~ "Norte",
+           nombre_region %in% c("Valparaiso", "Metropolitana de Santiago", "Libertador General Bernardo O'Higgins", "Maule", "Nuble", "Biobio") ~ "Centro",
+           nombre_region %in% c("La Araucanía", "Los Ríos", "Los Lagos", "Aysen del General Carlos Ibanez del Campo", "Magallanes y de la Antartica Chilena") ~ "Sur",
+           TRUE ~ NA_character_
+         ) 
+         #zona=factor(zona, levels=c("Norte", "Centro", "Sur", "Austral"))
+    ) 
+
+
+```
+
+## Descripción de variables
+
+```{r}
+#| code-fold: TRUE
+#| warning: false
+#| message: false
+#| tbl-cap: "Estadísticos descriptivos para las variables de interés"
+
+# Generamos dummies 
+births <- cbind(births, make_dummies(births$sexo, prefix = ""))
+births <- cbind(births, make_dummies(births$tipo_parto, prefix = ""))
+births <- cbind(births, make_dummies(births$zona, prefix = ""))
+births <- cbind(births, make_dummies(births$nombre_region, prefix = ""))
+births <- cbind(births, make_dummies(births$nivel_madre, prefix = ""))
+births <- cbind(births, make_dummies(births$activ_madre, prefix = ""))
+births <- cbind(births, make_dummies(births$nivel_padre, prefix = ""))
+births <- cbind(births, make_dummies(births$activ_padre, prefix = ""))
+
+# Data
+births_full <- births %>% 
+  select("semanas", "peso", "low_weight", "talla",
+         "sexo1", "sexo2", "tipo_parto1", "tipo_parto2", "tipo_parto3", "tipo_parto4",
+         "edad_madre", 
+         "nivel_madre1",  "nivel_madre2", "nivel_madre3", "nivel_madre4", "nivel_madre5",
+         "activ_madre0", "activ_madre1",  "activ_madre2", # "activ_madre3",
+         "edad_padre",  
+         "nivel_padre1",  "nivel_padre2", "nivel_padre3", "nivel_padre4", "nivel_padre5",
+         "activ_padre0", "activ_padre1",  "activ_padre2", 
+         "nombre_regionArica y Parinacota", "nombre_regionAntofagasta", 
+         "nombre_regionValparaiso", "nombre_regionMetropolitana de Santiago", "nombre_regionNuble", 
+         "nombre_regionBiobio", "nombre_regionMaule", "nombre_regionLos Lagos",
+         "nombre_regionAysen del General Carlos Ibanez del Campo", "nombre_regionMagallanes y de la Antartica Chilena",     
+         "zonaNorte", "zonaCentro", "zonaSur"
+         )
+
+vars_des <- colnames(births_full)
+table <- tibble()
+for (i in vars_des){
+  # Asegúrate de que i es convertido a simbolo con as.symbol o rlang::sym
+  des_res <- descriptives(x = !!rlang::sym(i), data = births_full)
+  table <- dplyr::bind_rows(table, des_res)
+}
+
+table$Variable <- c("Gestación (semanas)", "Peso (gr.)", "Peso <2500 gr.", "Talla (cm.)",
+                    "Hombre", "Mujer", 
+                    "Parto Simple", "Parto Doble", "Parto Triple", "Otro", 
+                    "Edad de la madre", 
+                    "Educ. Madre Superior", "Medio", "Secundaria", "Básico o Primario", "Sin educación",
+                    "Act. Madre: Inactivo", "Activo", "Cesante o desocupado",
+                    "Edad del padre", 
+                    "Educ. Padre Superior", "Medio", "Secundaria", "Básico o Primario", "Sin educación",
+                    "Act. Padre: Inactivo", "Activo", "Cesante o desocupado",
+                    "Arica y Parinacota", "Antofagasta", 
+                    "Valparaiso", "Metropolitana de Santiago", "Nuble", 
+                    "Biobio", "Maule", "Los Lagos",
+                    "Aysen del General Carlos Ibanez del Campo", "Magallanes y de la Antartica Chilena",     
+                    "Norte", "Centro", "Sur"
+                    )
+
+table <- table %>% 
+  mutate(across(c(4:12), ~na_if(.x, 0))) %>% 
+  mutate(across(c(4:12), ~na_if(.x, 1))) %>% 
+  select(-"N")
+
+flextable::flextable(table)
+```
+
+## Tendencia espacio-temporales
+
+```{r}
+#| code-fold: TRUE
+#| warning: false
+#| message: false
+#| fig-cap: "Cantidad de nacimientos entre el 2011 al 2020"
+#| fig-width: 10
+#| fig-height: 10
+
+births <- births %>% 
+    mutate(date_nac = make_date(year = ano_nac, month = mes_nac, day = dia_nac))
+
+nac <- births %>% 
+  group_by(ano_nac, mes_nac, dia_nac, date_nac) %>% 
+  summarise(n=n(),
+            peso=mean(peso, na.rm = TRUE),
+            low_weight=round(mean(low_weight , na.rm = TRUE),3)
+            )
+
+ggplot(nac, aes(x = date_nac, y = n)) +
+  geom_line() + 
+  scale_x_date(date_breaks = "1 month", date_labels = "%b") +
+  facet_wrap(~ ano_nac, scales = "free_x", ncol=2)  +
+  labs(x = "Fecha", y = "Cantidad de nacimientos") +
+  theme_light() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1), 
+        legend.title = element_blank(),
+        legend.position = "none", 
+        strip.background = element_blank(),
+        strip.text = element_text(color="black")) 
+```
+
+
+```{r}
+#| code-fold: TRUE
+#| warning: false
+#| message: false
+#| fig-cap: "Promedio de peso en gramos entre el 2011 al 2020"
+#| fig-width: 10
+#| fig-height: 10
+
+ggplot(nac, aes(x = date_nac, y = peso)) +
+  geom_line() + 
+  scale_x_date(date_breaks = "1 month", date_labels = "%b") +
+  facet_wrap(~ ano_nac, scales = "free_x", ncol=2)  +
+  labs(x = "Fecha", y = "Peso (gramos)") +
+  theme_light() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1), 
+        legend.title = element_blank(),
+        legend.position = "none", 
+        strip.background = element_blank(),
+        strip.text = element_text(color="black")) 
+```
+
+
+```{r}
+#| code-fold: TRUE
+#| warning: false
+#| message: false
+#| fig-cap: "Porcentaje de nacimientos con bajo peso"
+#| fig-width: 10
+#| fig-height: 10
+
+ggplot(nac, aes(x = date_nac, y = low_weight, color=factor(ano_nac))) +
+  geom_col() + 
+  scale_y_continuous(labels = scales::percent_format()) +
+  scale_x_date(date_breaks = "1 month", date_labels = "%b") +
+  #coord_flip() +
+  facet_wrap(~ ano_nac, scales = "free_x", ncol=2)  +
+  labs(x = "Fecha", y = "% de nacimientos con bajo peso") +
+  theme_light() +
+  theme(axis.text.x = element_text(angle = 0, hjust = 1), 
+        legend.title = element_blank(),
+        legend.position = "none", 
+        strip.background = element_blank(),
+        strip.text = element_text(color="black")) 
+```
+
+```{r}
+#| code-fold: TRUE
+#| warning: false
+#| message: false
+#| tbl-cap: "Estadísticos de nacimiento"
+
+nac_full <- births %>% 
+  summarise(Nacimientos=n(),
+            Peso=mean(peso, na.rm = TRUE),
+            Bajo_peso=round(mean(low_weight , na.rm = TRUE),3)
+            ) %>% 
+  mutate(Muestra="Full Sample") %>% 
+  relocate(Muestra)
+
+flextable::flextable(nac_full)
+```
+
+```{r}
+#| code-fold: TRUE
+#| warning: false
+#| message: false
+#| tbl-cap: "Estadísticos de nacimiento por zona y región"
+
+nac_zona <- births %>% 
+  group_by(zona) %>% 
+  summarise(Nacimientos=n(),
+            Peso=mean(peso, na.rm = TRUE),
+            Bajo_peso=round(mean(low_weight , na.rm = TRUE),3)
+            )%>% 
+  mutate(Muestra="Macrozona") %>% 
+  relocate(Muestra) %>% 
+  rename(Zona=zona)
+
+nac_reg <- births %>% 
+  group_by(nombre_region) %>% 
+  summarise(Nacimientos=n(),
+            Peso=mean(peso, na.rm = TRUE),
+            Bajo_peso=round(mean(low_weight , na.rm = TRUE),3)
+            ) %>% 
+  mutate(Muestra="Región")  %>% 
+  relocate(Muestra) %>% 
+  rename(Zona=nombre_region)
+
+nac_zona_reg <- nac_zona %>% bind_rows(nac_reg)
+flextable::flextable(nac_zona_reg)
+```
+
+```{r}
+#| code-fold: TRUE
+#| warning: false
+#| message: false
+#| tbl-cap: "Estadísticos de nacimiento en el tiempo"
+
+nac_date <- births %>% 
+  group_by(ano_nac, mes_nac) %>% 
+  summarise(Nacimientos=n(),
+            Peso=mean(peso, na.rm = TRUE),
+            Bajo_peso=round(mean(low_weight , na.rm = TRUE),3)
+            ) %>% 
+  rename(Agno=ano_nac) %>% 
+  rename(Mes=mes_nac) %>% 
+  mutate(Agno=factor(Agno))
+
+flextable::flextable(nac_date)
+```
+
+
