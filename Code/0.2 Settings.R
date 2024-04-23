@@ -1,4 +1,4 @@
-## Settings ---- 
+# Settings ---- 
 
 options(scipen=999)
 options(max.print = 99999999)
@@ -24,8 +24,11 @@ install_load <- function(packages){
 
 # Apply function
 install_load(c("rio", "janitor", "tidyverse", 
-               "chilemapas", 
-               "sf", "ggpubr", 
+               "chilemapas", "patchwork",
+               "sf", "ggpubr", "data.table",
                "officer", "flextable", 
                "naniar", "visdat", "VIM",
-               "rpart", "rpart.plot"))
+               "rpart", "rpart.plot",
+               "parallel", "profvis", "htmlwidgets",
+               "future", "purrr", "furrr",
+               "future.apply"))
