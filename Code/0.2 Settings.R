@@ -31,4 +31,4 @@ install_load(c("rio", "janitor", "tidyverse",
                "rpart", "rpart.plot",
                "parallel", "profvis", "htmlwidgets",
                "future", "purrr", "furrr",
-               "future.apply"))
+               "future.apply", "zoo"))
