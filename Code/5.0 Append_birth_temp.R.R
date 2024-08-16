@@ -27,8 +27,8 @@ save(births_weeks_temp, file=paste0("Data/Output/", "births_2011_2020_weeks_temp
 
 path_to_files <- "Data/Output/parts_data_final_hum"  # Asegúrate de que este sea el path correcto a tu carpeta
 file_list <- list.files(path = path_to_files, pattern = "*.RDS", full.names = TRUE)
-births_weeks_temp <- map_df(file_list, load_and_extract_df)
+births_weeks_hum <- map_df(file_list, load_and_extract_df)
 
-save(births_weeks_temp, file=paste0("Data/Output/", "births_2011_2020_weeks_hum", ".RData"))
+save(births_weeks_hum, file=paste0("Data/Output/", "births_2011_2020_weeks_hum", ".RData"))
 
 

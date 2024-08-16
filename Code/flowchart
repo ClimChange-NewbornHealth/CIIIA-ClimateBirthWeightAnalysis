@@ -1,0 +1,12 @@
+flowchart TD
+    A(Nacimientos 1992 - 2020 \n N=7.084.698) -->|Filtrado de casos por año| B(Nacimientos 2011 -2020\n N=394.546) 
+    B --> C{Limpieza de datos}
+    C -->|Paso 1: codificación y filtrado| D[Missing values \n peso al nacer=999]
+    C -->|Paso 2: codificación y filtrado| E[Missing values \n semanas gestacionales=999]
+    C -->|Solo codificación| F[*Missing values \n Otras covariables==9,99]
+    D -->|Pérdida de 595 observaciones| G[Data ajustada \n N=394.546]
+    E -->|Pérdida de 595 observaciones| G[Data ajustada \n N=394.546]
+    F --> G[Data ajustada \n N=394.546]
+    G --> H[Asignación de datos de temperatura \n N=394.546]
+    H --> |Nacimientos con semanas gestacionales < 2010\n Se excluyen nacimientos previos a Octubre 2011| I(Data Disponible 2011 -2020\n N=361.913) 
+    I --> |Si removemos missing en covariables: 11.5% |J[Data modelos multivariados \n N=320.072]

@@ -43,6 +43,7 @@ end-start
 ## Clean memory use
 rm(list = ls()[!ls() %in%  c("temp", 
                              "calculate_temperature_stats",
+                             "calculate_humidity_stats",
                              "process_files"
                              
 )])
@@ -63,7 +64,7 @@ beepr::beep(1)
 start <- Sys.time()
 process_files(input_directory = "Data/Output/parts_data_final_births", 
               output_directory = "Data/Output/parts_data_final_hum", 
-              temp_data = temp,
+              hum_data = temp,
               calc_func = calculate_humidity_stats)
 end <- Sys.time()
 end-start 

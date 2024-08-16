@@ -56,7 +56,7 @@ calculate_temperature_stats <- function(row, temp_data) {
 calculate_humidity_stats <- function(row, hum_data) {
   # Asegurarse que tanto row como temp_data son data.table
   setDT(row)
-  setDT(temp_data)
+  setDT(hum_data)
   
   # Convertir fechas solo si es necesario
   row_copy <- copy(row)
@@ -71,11 +71,11 @@ calculate_humidity_stats <- function(row, hum_data) {
                       hum_max=NA_real_, hum_mean_min=NA_real_, hum_mean_max=NA_real_))
   } else {
     return(data.table(row_copy, 
-                      hum_mean = round(mean(as.numeric(week_temperatures$xh_diario), na.rm = TRUE), 3),
-                      hum_min = min(as.numeric(week_temperatures$h_min), na.rm = TRUE),
-                      hum_max = max(as.numeric(week_temperatures$h_max), na.rm = TRUE),
-                      hum_mean_min = round(mean(as.numeric(week_temperatures$h_min), na.rm = TRUE), 3),
-                      hum_mean_max = round(mean(as.numeric(week_temperatures$h_max), na.rm = TRUE), 3))
+                      hum_mean = round(mean(as.numeric(week_hum$xh_diario), na.rm = TRUE), 3),
+                      hum_min = min(as.numeric(week_hum$h_min), na.rm = TRUE),
+                      hum_max = max(as.numeric(week_hum$h_max), na.rm = TRUE),
+                      hum_mean_min = round(mean(as.numeric(week_hum$h_min), na.rm = TRUE), 3),
+                      hum_mean_max = round(mean(as.numeric(week_hum$h_max), na.rm = TRUE), 3))
     )
   }
 }
