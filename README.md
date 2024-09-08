@@ -1,8 +1,9 @@
 
 #  Exposure to extreme temperatures during pregnancy and birth weight: evidence from Chile (2011 – 2020) :baby:
 
-:mailbox_with_mail: Estela Blanco (mailto:<estela.blanco@uc.cl>)
-:mailbox_with_mail: José Daniel Conejeros (mailto:jdconejeros@uc.cl)
+:mailbox_with_mail: Estela Blanco (<estela.blanco@uc.cl>)
+
+:mailbox_with_mail: José Daniel Conejeros (<jdconejeros@uc.cl>)
 
 --LINK VIDEO--
 
@@ -16,7 +17,15 @@
 
 ## Principal Findings :sunny: :snowflake:
 
+**Figure.** Estimated differences in mean tBW (grams.) and 95% CI according to climate zone-specific centiles of average daily mean, minimum and maximum temperature relative to the reference category (41st–50th centile) among singleton term live births during the entire pregnancy (panel A, C, E) and by trimester (panel B, D, F).
+
 ![](/Output_analysis/temp/fig/Adjusted_GAM_models_tbw_trim_full.png)
 
+Note: These were estimated by generalized additive model (GAM) with normal distribution and identity link function for tBW. Models were adjusted for: newborn sex, maternal age, maternal education, maternal occupation, paternal age, paternal education, paternal occupation, year and month of LMP splines; for complete case (N= 330,118). LMP (last menstrual period); tBW-term mean birthweight (mean birthweight among births>36 gestational age weeks).
+
+**Figure.** Estimated differences in mean tBW (grams.) and 95% CI associated with extreme cold and hot daily mean, minimum and maximum temperatures (≤10th or >90th the percentile for each climate zone, respectively, relative to the 41st–50th centile) during each gestational age week among singleton live births in Chile during the period 2011–2020. 
+
 ![](/Output_analysis/dlnm/fig/DLNM_tBW.png)
+
+Estimates were derived using DLNM (lag-response function modeled as a natural spline with equidistant knots and 2 degrees of freedom, exposure–response function modeled using indicator terms for each decile of the temperature distribution). Models were adjusted newborn sex, maternal age, maternal education, maternal occupation, paternal age, paternal education, paternal occupation, year and month of LMP splines; for complete case (N= 330,118). LMP (last menstrual period); tBW-term mean birthweight (mean birthweight among births>36 gestational age weeks).
 
