@@ -27,3 +27,9 @@ Note: These were estimated by generalized additive model (GAM) with normal distr
 
 Estimates were derived using DLNM (lag-response function modeled as a natural spline with equidistant knots and 2 degrees of freedom, exposure–response function modeled using indicator terms for each decile of the temperature distribution). Models were adjusted newborn sex, maternal age, maternal education, maternal occupation, paternal age, paternal education, paternal occupation, year and month of LMP splines; for complete case (N= 330,118). LMP (last menstrual period); tBW-term mean birthweight (mean birthweight among births>36 gestational age weeks).
 
+**Figure 5.** Two Stage estimated differences in mean tBW (grams) and 95% confidence intervals according to climate zone-specific centiles of average daily mean (Panels A and B), minimum (Panel C), and maximum (Panel D) temperature relative to the reference category (41st–50th centile) among singleton term live births. These estimates were calculated during the entire pregnancy period.
+
+![](/Output_analysis/2Stage/2Stage_tBW.png)
+
+Note: The estimates were derived using a generalized additive model (GAM) with a normal distribution and identity link function for tBW. The models were adjusted for newborn sex, maternal age, maternal education, maternal occupation, paternal age, paternal education, paternal occupation, as well as year and month of LMP using splines. The results are based on a complete case dataset of N = 330,118. LMP refers to the last menstrual period, and tBW represents term birth weight, which includes births with a gestational age greater than 36 weeks.
+
