@@ -34,6 +34,7 @@ install_load(c("rio",
                "data.table",
                "officer", 
                "flextable", 
+               "vtable",
                "naniar", 
                "visdat", 
                "VIM",
@@ -61,5 +62,7 @@ install_load(c("rio",
                "kableExtra",
                "mixmeta", # Metanalysis package 2Stage
                "metafor",
-               "Epi"
+               "Epi",
+               "metR", 
+               "mvmeta"
                ))
