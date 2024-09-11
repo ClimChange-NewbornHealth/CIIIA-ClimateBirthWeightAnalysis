@@ -1,6 +1,9 @@
 
 #  Exposure to extreme temperatures during pregnancy and birth weight: evidence from Chile (2011 – 2020) :baby:
 
+![GitHub commit activity](https://img.shields.io/github/commit-activity/t/ClimChange-NewbornHealth/CIIIA-ClimateBirthWeightAnalysis)
+
+
 :moneybag: Funding: Proyecto Interuniversatrio de Iniciación en Investigación Asociativa: IUP22-37
 
 :mailbox_with_mail: Estela Blanco (<estela.blanco@uc.cl>)
