@@ -1,7 +1,17 @@
 
 #  Exposure to extreme temperatures during pregnancy and birth weight: evidence from Chile (2011 – 2020) :baby:
 
+![GitHub Repo stars](https://img.shields.io/github/stars/ClimChange-NewbornHealth/CIIIA-ClimateBirthWeightAnalysis)
+![GitHub watchers](https://img.shields.io/github/watchers/ClimChange-NewbornHealth/CIIIA-ClimateBirthWeightAnalysis)
+![GitHub forks](https://img.shields.io/github/forks/ClimChange-NewbornHealth/CIIIA-ClimateBirthWeightAnalysis)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/t/ClimChange-NewbornHealth/CIIIA-ClimateBirthWeightAnalysis)
+![GitHub contributors](https://img.shields.io/github/contributors/ClimChange-NewbornHealth/CIIIA-ClimateBirthWeightAnalysis)
+![GitHub last commit](https://img.shields.io/github/last-commit/ClimChange-NewbornHealth/CIIIA-ClimateBirthWeightAnalysis)
+![GitHub language count](https://img.shields.io/github/languages/count/ClimChange-NewbornHealth/CIIIA-ClimateBirthWeightAnalysis)
+![GitHub top language](https://img.shields.io/github/languages/top/ClimChange-NewbornHealth/CIIIA-ClimateBirthWeightAnalysis)
+![GitHub License](https://img.shields.io/github/license/ClimChange-NewbornHealth/CIIIA-ClimateBirthWeightAnalysis)
+![GitHub repo file or directory count](https://img.shields.io/github/directory-file-count/ClimChange-NewbornHealth/CIIIA-ClimateBirthWeightAnalysis)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/ClimChange-NewbornHealth/CIIIA-ClimateBirthWeightAnalysis)
 
 
 :moneybag: Funding: Proyecto Interuniversatrio de Iniciación en Investigación Asociativa: IUP22-37
