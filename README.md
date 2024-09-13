@@ -17,9 +17,12 @@
 :moneybag: Funding: Proyecto Interuniversatrio de Iniciación en Investigación Asociativa: IUP22-37. 
 
 :mailbox_with_mail: Estela Blanco (<estela.blanco@uc.cl>) -  **Principal Researcher**
-:pushpin: María Isabel Matute -  **Principal Researcher**
-:pushpin: Paola Rubilar -  **Principal Researcher**
-:pushpin: Raquel Jiménez -  **Principal Researcher**
+
+:paperclip: María Isabel Matute -  **Principal Researcher**
+
+:paperclip: Paola Rubilar -  **Principal Researcher**
+
+:paperclip: Raquel Jiménez -  **Principal Researcher**
 
 :mailbox_with_mail: José Daniel Conejeros (<jdconejeros@uc.cl>) - **Research Assistant-Repository maintainer**
 
