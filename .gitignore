@@ -1,10 +1,10 @@
 .Rproj.user
 .Rhistory
 .RData
+.RDataTmp
 .Ruserdata
 .DS_Store
 Temporal_project.Rproj
-Icon
 /Data/ 
 /Contrato/
 /Products/
@@ -12,4 +12,3 @@ Icon
 /Documents/
 /Paper_Temp and BW/
 /Code/Test_codes/
-Icon 

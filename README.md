@@ -14,11 +14,14 @@
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/ClimChange-NewbornHealth/CIIIA-ClimateBirthWeightAnalysis)
 
 
-:moneybag: Funding: Proyecto Interuniversatrio de Iniciación en Investigación Asociativa: IUP22-37
+:moneybag: Funding: Proyecto Interuniversatrio de Iniciación en Investigación Asociativa: IUP22-37. 
 
-:mailbox_with_mail: Estela Blanco (<estela.blanco@uc.cl>)
+:mailbox_with_mail: Estela Blanco (<estela.blanco@uc.cl>) -  **Principal Researcher**
+:pushpin: María Isabel Matute -  **Principal Researcher**
+:pushpin: Paola Rubilar -  **Principal Researcher**
+:pushpin: Raquel Jiménez -  **Principal Researcher**
 
-:mailbox_with_mail: José Daniel Conejeros (<jdconejeros@uc.cl>)
+:mailbox_with_mail: José Daniel Conejeros (<jdconejeros@uc.cl>) - **Research Assistant-Repository maintainer**
 
 :pushpin: **Background**: Exposure to extreme temperatures, both high and low, during pregnancy can have adverse effects on fetal development, with birth weight being a critical indicator of neonatal health, however, there is little evidence from Latin America.
 
