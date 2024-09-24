@@ -162,7 +162,7 @@ g1 <- df_cz |>
   labs(x = NULL,
        y = "Differences in tBW and 95% CI (grams)", 
        title="Adjusted Mean",
-       subtitle = "Cold (<10th) vs reference (41st - 50th)") +
+       subtitle = "Cold (<=10th) vs reference (41st - 50th)") +
   theme_bw() +
   theme(legend.position = "right",
         legend.title = element_blank(),
@@ -342,7 +342,7 @@ g3 <- df_cz_min |>
   labs(x = NULL,
        y = "Differences in tBW and 95% CI (grams)", 
        title="Adjusted Minimum",
-       subtitle="Cold (<10th) vs reference (41st - 50th)") +
+       subtitle="Cold (<=10th) vs reference (41st - 50th)") +
   theme_bw() +
   theme(legend.position = "right",
         legend.title = element_blank(),
