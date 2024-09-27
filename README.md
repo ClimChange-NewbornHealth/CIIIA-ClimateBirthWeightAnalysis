@@ -16,15 +16,15 @@
 
 :moneybag: Funding: Proyecto Interuniversatrio de Iniciación en Investigación Asociativa: IUP22-37. 
 
-:mailbox_with_mail: Estela Blanco (<estela.blanco@uc.cl>) -  **Principal Researcher**
+:mailbox_with_mail: Estela Blanco (<estela.blanco@uc.cl>) -  **Principal Investigator**
 
-:paperclip: María Isabel Matute -  **Principal Researcher**
+:paperclip: Paola Rubilar -  **Principal Investigator**
 
-:paperclip: Paola Rubilar -  **Principal Researcher**
+:paperclip: Raquel Jiménez -  **Principal Investigator**
 
-:paperclip: Raquel Jiménez -  **Principal Researcher**
+:paperclip: María Isabel Matute -  **Research Collaborator**
 
-:mailbox_with_mail: José Daniel Conejeros (<jdconejeros@uc.cl>) - **Research Assistant-Repository maintainer**
+:mailbox_with_mail: José Daniel Conejeros (<jdconejeros@uc.cl>) - **Research Collaborator - Repository Manager**
 
 :pushpin: **Background**: Exposure to extreme temperatures, both high and low, during pregnancy can have adverse effects on fetal development, with birth weight being a critical indicator of neonatal health, however, there is little evidence from Latin America.
 
@@ -36,21 +36,21 @@
 
 ## Principal Findings :sunny: :snowflake:
 
-**Figure 1.** Estimated differences in mean tBW (grams.) and 95% CI according to climate zone-specific centiles of average daily mean, minimum and maximum temperature relative to the reference category (41st–50th centile) among singleton term live births during the entire pregnancy (panel A, C, E) and by trimester (panel B, D, F).
+**Figure 1.** Estimated differences in mean term birth weight (g) and 95% confidence intervals according to climate zone-specific centiles of average daily mean, minimum and maximum temperature relative to the reference category (41st–50th centile) among singleton term live births during the entire pregnancy (panel A, C, E) and by trimester (panel B, D, F) in Chile during the period 2011–2020. 
 
 ![](/Output_analysis/temp/fig/Adjusted_GAM_models_tbw_trim_full.png)
 
-Note: These were estimated by generalized additive model (GAM) with normal distribution and identity link function for tBW. Models were adjusted for: newborn sex, maternal age, maternal education, maternal occupation, paternal age, paternal education, paternal occupation, year and month of LMP splines; for complete case (N= 330,118). LMP (last menstrual period); tBW-term mean birthweight (mean birthweight among births>36 gestational age weeks).
+Note: Models estimated using generalized additive model (GAM) with normal distribution and identity link function for tBW. Models were adjusted for: newborn sex, maternal and paternal age, maternal and paternal education, maternal and paternal occupation, year and month of last menstrual period splines (N= 330,118). tBW-term mean birthweight (mean birthweight among births>36 gestational age weeks).
 
-**Figure 3.** Estimated differences in mean tBW (grams.) and 95% CI associated with extreme cold and hot daily mean, minimum and maximum temperatures (≤10th or >90th the percentile for each climate zone, respectively, relative to the 41st–50th centile) during each gestational age week among singleton live births in Chile during the period 2011–2020. 
+**Figure 2.** Estimated differences in mean term birth weight (g) and 95% confidence intervals associated with exposure to cold and hot daily mean, minimum and maximum temperatures (≤10th or >90th the percentile for each climate zone, respectively, relative to the 41st–50th centile) during each gestational age week among singleton live births in Chile during the period 2011–2020. 
 
 ![](/Output_analysis/dlnm/fig/DLNM_tBW.png)
 
-Estimates were derived using DLNM (lag-response function modeled as a natural spline with equidistant knots and 2 degrees of freedom, exposure–response function modeled using indicator terms for each decile of the temperature distribution). Models were adjusted newborn sex, maternal age, maternal education, maternal occupation, paternal age, paternal education, paternal occupation, year and month of LMP splines; for complete case (N= 330,118). LMP (last menstrual period); tBW-term mean birthweight (mean birthweight among births>36 gestational age weeks).
+Note: Estimates were derived using distributed lag non-linear models (DLNM, lag-response function modeled as a natural spline with equidistant knots and 2 degrees of freedom, exposure–response function modeled using indicator terms for each decile of the temperature distribution). Models were adjusted for: newborn sex, maternal and paternal age, maternal and paternal education, maternal and paternal occupation, year and month of last menstrual period splines (N= 330,118). Term birthweight is mean birthweight among births >36 gestational age weeks.
 
-**Figure 5.** Two Stage estimated differences in mean tBW (grams) and 95% confidence intervals according to climate zone-specific centiles of average daily mean (Panels A and B), minimum (Panel C), and maximum (Panel D) temperature relative to the reference category (41st–50th centile) among singleton term live births. These estimates were calculated during the entire pregnancy period.
+**Figure 5.** Two Stage estimated differences in mean term birth weight (g) and 95% confidence intervals according to climate zone-specific centiles of average daily mean (Panels A and B), minimum (Panel C), and maximum (Panel D) temperature relative to the reference category (41st–50th centile) among singleton term live births in Chile 2011-2020. Estimates were calculated for exposure in the entire pregnancy period.
 
 ![](/Output_analysis/2Stage/2Stage_tBW.png)
 
-Note: The estimates were derived using a generalized additive model (GAM) with a normal distribution and identity link function for tBW. The models were adjusted for newborn sex, maternal age, maternal education, maternal occupation, paternal age, paternal education, paternal occupation, as well as year and month of LMP using splines. The results are based on a complete case dataset of N = 330,118. LMP refers to the last menstrual period, and tBW represents term birth weight, which includes births with a gestational age greater than 36 weeks.
+Note: Estimates were derived using a generalized additive model (GAM) with a normal distribution and identity link function for tBW. Models were adjusted for: newborn sex, maternal and paternal age, maternal and paternal education, maternal and paternal occupation, year and month of last menstrual period splines (N= 330,118). Term birth weight represents birth weight for infants born after 36 weeks gestation.
 
