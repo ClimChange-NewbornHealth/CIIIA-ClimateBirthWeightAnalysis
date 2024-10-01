@@ -34,7 +34,7 @@
 
 :pushpin: **Discussion:** Lower birth weight was consistently observed for exposure to cold temperatures, as was exposure to extreme heat. Exposure to warmer mean temperatures related to higher birthweight. Differing results from the Chilean population highlight the importance of understanding regional impacts of climate change on child health.
 
-![code](https://skillicons.dev/icons?i=r) **Data and Code**: You can run code 6 7.0 to 10 with the data table `births_2011_2020_weeks_temp_analysis.RData` downloading the data table [here](https://www.dropbox.com/scl/fi/6ngi8nfcszc0p86ozcgs2/births_2011_2020_weeks_temp_analysis.RData?rlkey=m7qdpqsy0ffx7s6g7r3hbl440&st=rl1uwsqc&dl=0).
+![code](https://skillicons.dev/icons?i=r) **Data and Code**: You can run code 7.0 to 10.0 with the data table `births_2011_2020_weeks_temp_analysis.RData` downloading the data table [here](https://www.dropbox.com/scl/fi/6ngi8nfcszc0p86ozcgs2/births_2011_2020_weeks_temp_analysis.RData?rlkey=m7qdpqsy0ffx7s6g7r3hbl440&st=rl1uwsqc&dl=0).
 
 ## Principal Findings :sunny: :snowflake:
 
