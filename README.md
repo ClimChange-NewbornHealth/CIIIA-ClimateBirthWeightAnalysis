@@ -1,5 +1,5 @@
 
-#  Exposure to extreme temperatures during pregnancy and birth weight: evidence from Chile (2011 – 2020) :baby:
+#  From the Atacama to Patagonia: understanding the effects of extreme temperatures on birth weight across climate regions in Chile. :baby:
 
 ![GitHub Repo stars](https://img.shields.io/github/stars/ClimChange-NewbornHealth/CIIIA-ClimateBirthWeightAnalysis)
 ![GitHub watchers](https://img.shields.io/github/watchers/ClimChange-NewbornHealth/CIIIA-ClimateBirthWeightAnalysis)
