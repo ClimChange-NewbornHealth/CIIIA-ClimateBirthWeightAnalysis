@@ -92,6 +92,9 @@ for(i in seq_along(clim_zones)) {
 
 # Acumulative
 model0 <- mixmeta(coef ~ 1, S, data = data, method = "reml", bscov = "unstr", random = ~ 1 | clim_zones)
+# Test to compare the differences in estimates between climate zones
+qtest(model0)
+
 blups0 <- blup(model0, vcov=TRUE)
 
 ### Plots with analysis  ----
@@ -274,6 +277,9 @@ for(i in seq_along(clim_zones)) {
 
 # Acumulative
 model1 <- mixmeta(coef ~ 1, S, data = data, method = "reml", bscov = "unstr", random = ~ 1 | clim_zones)
+# Test to compare the differences in estimates between climate zones
+qtest(model1)
+
 blups0 <- blup(model1, vcov=TRUE)
 
 ### Plots with analysis  ----
@@ -423,6 +429,8 @@ for(i in seq_along(clim_zones)) {
 
 # Acumulative
 model2 <- mixmeta(coef ~ 1, S, data = data, method = "reml", bscov = "unstr", random = ~ 1 | clim_zones)
+# Test to compare the differences in estimates between climate zones
+qtest(model2)
 blups0 <- blup(model2, vcov=TRUE)
 
 ### Plots with analysis  ----
