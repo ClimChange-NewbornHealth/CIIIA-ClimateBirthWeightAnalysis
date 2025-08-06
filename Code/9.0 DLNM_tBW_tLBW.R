@@ -35,11 +35,11 @@ trend <- c("year_week1", "month_week1")
 # Select and transform to wide data 
 bw_dlnm_mean <- births_weeks_temp |>
   #filter(week_gest_num<=37) |>
-  select(all_of(c(time, vd, vi, vc, trend))) %>%
+  dplyr::select(all_of(c(time, vd, vi, vc, trend))) %>%
   group_by(clim_zone, week_gest_num) %>%
   mutate(temp_mean_percentile_wcz = ntile(temp_mean, 100)) %>%
   ungroup() |> 
-  select(-temp_mean) |>
+  dplyr::select(-temp_mean) |>
   pivot_wider(names_from = "week_gest_num", 
               values_from = "temp_mean_percentile_wcz",
               names_prefix = "ptem_gw")
@@ -47,23 +47,23 @@ bw_dlnm_mean <- births_weeks_temp |>
 
 bw_dlnm_min <- births_weeks_temp |>
   #filter(week_gest_num<=37) |>
-  select(all_of(c(time, vd, vi2, vc, trend))) %>%
+  dplyr::select(all_of(c(time, vd, vi2, vc, trend))) %>%
   group_by(clim_zone, week_gest_num) %>%
   mutate(temp_min_percentile_wcz = ntile(temp_min, 100)) %>%
   ungroup() |> 
-  select(-temp_min) |>
+  dplyr::select(-temp_min) |>
   pivot_wider(names_from = "week_gest_num", 
               values_from = "temp_min_percentile_wcz",
               names_prefix = "ptem_gw") 
 
 bw_dlnm_max <- births_weeks_temp |>
   #filter(week_gest_num<=37) |>
-  select(all_of(c(time, vd, vi3, vc, trend))) %>%
+  dplyr::select(all_of(c(time, vd, vi3, vc, trend))) %>%
   group_by(clim_zone, week_gest_num) %>%
   mutate(temp_max_percentile_wcz = ntile(temp_max, 100)) %>%
   group_by(clim_zone, week_gest_num) %>%
   ungroup() |> 
-  select(-temp_max) |>
+  dplyr::select(-temp_max) |>
   pivot_wider(names_from = "week_gest_num", 
               values_from = "temp_max_percentile_wcz",
               names_prefix = "ptem_gw") 
@@ -77,169 +77,6 @@ glimpse(bw_dlnm_max)
 ####################################################/
 # DLNM -------- 
 ####################################################/
-
-####################################################/
-### Optimal knots -------- 
-####################################################/
-
-# grid the knots
-knots = c(2, 3, 4, 5, 6, 8, 10)
-
-# Mean
-
-AICs.bw = c()
-BICs.bw = c()
-
-AICs.lbw = c()
-BICs.lbw = c()
-
-mat <- bw_dlnm_mean |>
-  dplyr::select(ptem_gw1:ptem_gw37) |>
-  as.matrix()
-
-for (i in 1:length(knots)) {
-  
-  lagknots <- equalknots(x = c(2, 36), # same as the one that we define earlier
-                         nk = knots[i], fun = "ns")
-  
-  cb <- crossbasis(mat, 
-                   lag = c(1, 37),
-                   argvar = list(fun = "strata", breaks=seq(10,90,by=10), ref=5),
-                   arglag = list(fun = "ns", knots = lagknots)) # the form of the curve across all the lags, that is, the lag constrain 
-  
-  mod1 <- gam(tbw ~ cb + sex +
-               age_group_mom + educ_group_mom + job_group_mom +
-               age_group_dad + educ_group_dad + job_group_dad +
-               s(year_week1) + s(month_week1),
-             data = bw_dlnm_mean,
-             na.action = na.exclude,
-             family=gaussian())
-  
-  mod2 <- gam(ltbw ~ cb + sex +
-               age_group_mom + educ_group_mom + job_group_mom +
-               age_group_dad + educ_group_dad + job_group_dad +
-               s(year_week1) + s(month_week1),
-             data = bw_dlnm_mean,
-             na.action = na.exclude,
-             family = binomial(link = "logit"),
-             gc.level = 0)
-  
-  AICs.bw[i] = AIC(mod1)
-  BICs.bw[i] = BIC(mod1)
-  
-  AICs.lbw[i] = AIC(mod2)
-  BICs.lbw[i] = BIC(mod2)
-  
-}
-
-# Min
-
-AICs.bw = c()
-BICs.bw = c()
-
-AICs.lbw = c()
-BICs.lbw = c()
-
-mat <- bw_dlnm_min |>
-  dplyr::select(ptem_gw1:ptem_gw37) |>
-  as.matrix()
-
-for (i in 1:length(knots)) {
-  
-  lagknots <- equalknots(x = c(2, 36), # same as the one that we define earlier
-                         nk = knots[i], fun = "ns")
-  
-  cb <- crossbasis(mat, 
-                   lag = c(1, 37),
-                   argvar = list(fun = "strata", breaks=seq(10,90,by=10), ref=5),
-                   arglag = list(fun = "ns", knots = lagknots)) # the form of the curve across all the lags, that is, the lag constrain 
-  
-  mod1 <- gam(tbw ~ cb + sex +
-                age_group_mom + educ_group_mom + job_group_mom +
-                age_group_dad + educ_group_dad + job_group_dad +
-                s(year_week1) + s(month_week1),
-              data = bw_dlnm_mean,
-              na.action = na.exclude,
-              family=gaussian())
-  
-  mod2 <- gam(ltbw ~ cb + sex + 
-                age_group_mom + educ_group_mom + job_group_mom +
-                age_group_dad + educ_group_dad + job_group_dad +
-                s(year_week1) + s(month_week1),
-              data = bw_dlnm_mean, 
-              na.action = na.exclude,
-              family = binomial(link = "logit"),
-              gc.level = 0)
-  
-  AICs.bw[i] = AIC(mod1)
-  BICs.bw[i] = BIC(mod1)
-  
-  AICs.lbw[i] = AIC(mod2)
-  BICs.lbw[i] = BIC(mod2)
-  
-}
-
-# Max
-
-AICs.bw = c()
-BICs.bw = c()
-
-AICs.lbw = c()
-BICs.lbw = c()
-
-
-mat <- bw_dlnm_max |>
-  dplyr::select(ptem_gw1:ptem_gw37) |>
-  as.matrix()
-
-for (i in 1:length(knots)) {
-  
-  lagknots <- equalknots(x = c(2, 36), # same as the one that we define earlier
-                         nk = knots[i], fun = "ns")
-  
-  cb <- crossbasis(mat, 
-                   lag = c(1, 37),
-                   argvar = list(fun = "strata", breaks=seq(10,90,by=10), ref=5),
-                   arglag = list(fun = "ns", knots = lagknots)) # the form of the curve across all the lags, that is, the lag constrain 
-  
-  mod1 <- gam(tbw ~ cb + sex +
-                age_group_mom + educ_group_mom + job_group_mom +
-                age_group_dad + educ_group_dad + job_group_dad +
-                s(year_week1) + s(month_week1),
-              data = bw_dlnm_mean,
-              na.action = na.exclude,
-              family=gaussian())
-  
-  mod2 <- gam(ltbw ~ cb + sex + 
-                age_group_mom + educ_group_mom + job_group_mom +
-                age_group_dad + educ_group_dad + job_group_dad +
-                s(year_week1) + s(month_week1),
-              data = bw_dlnm_mean, 
-              na.action = na.exclude,
-              family = binomial(link = "logit"),
-              gc.level = 0)
-  
-  AICs.bw[i] = AIC(mod1)
-  BICs.bw[i] = BIC(mod1)
-  
-  AICs.lbw[i] = AIC(mod2)
-  BICs.lbw[i] = BIC(mod2)
-  
-}
-
-# Show the knots 
-AICs.lbw # We obtained the AIC for the different knots 
-BICs.lbw # We obtained the BIC for the different knots
-
-AICs.lbw # We obtained the AIC for the different knots 
-BICs.lbw # We obtained the BIC for the different knots
-
-# This return the minimum AIC (knots), this mean that we going to use nk = 2 in the lagknots 
-knots[which.min(AICs.bw)] 
-knots[which.min(BICs.bw)]
-
-knots[which.min(AICs.lbw)] 
-knots[which.min(BICs.lbw)]
 
 ############################################################/
 ### Crossbasis for our model -------

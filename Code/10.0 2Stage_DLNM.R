@@ -29,11 +29,11 @@ vi <- c("temp_mean")
 
 data <- births_weeks_temp |>
   filter(week_gest_num <= 37) |>
-  select(all_of(c(time, vd, vi, vc, trend))) |>
+  dplyr::select(all_of(c(time, vd, vi, vc, trend))) |>
   group_by(clim_zone, week_gest_num) |>
   mutate(temp_mean_percentile_wcz = ntile(temp_mean, 100)) |> 
   ungroup() |> 
-  select(-temp_mean) |>
+  dplyr::select(-temp_mean) |>
   pivot_wider(names_from = "week_gest_num", 
               values_from = "temp_mean_percentile_wcz",
               names_prefix = "ptem_gw") 
@@ -213,11 +213,11 @@ vi <- c("temp_min")
 
 data <- births_weeks_temp |>
   filter(week_gest_num <= 37) |>
-  select(all_of(c(time, vd, vi, vc, trend))) |>
+  dplyr::select(all_of(c(time, vd, vi, vc, trend))) |>
   group_by(clim_zone, week_gest_num) |>
   mutate(temp_min_percentile_wcz = ntile(temp_min, 100)) |> 
   ungroup() |> 
-  select(-temp_min) |>
+  dplyr::select(-temp_min) |>
   pivot_wider(names_from = "week_gest_num", 
               values_from = "temp_min_percentile_wcz",
               names_prefix = "ptem_gw") 
@@ -363,11 +363,11 @@ vi <- c("temp_max")
 
 data <- births_weeks_temp |>
   filter(week_gest_num <= 37) |>
-  select(all_of(c(time, vd, vi, vc, trend))) |>
+  dplyr::select(all_of(c(time, vd, vi, vc, trend))) |>
   group_by(clim_zone, week_gest_num) |>
   mutate(temp_max_percentile_wcz = ntile(temp_max, 100)) |> 
   ungroup() |> 
-  select(-temp_max) |>
+  dplyr::select(-temp_max) |>
   pivot_wider(names_from = "week_gest_num", 
               values_from = "temp_max_percentile_wcz",
               names_prefix = "ptem_gw") 

@@ -46,6 +46,7 @@ install_load(c("rio",
                "future", 
                "purrr", 
                "furrr",
+               "future",
                "future.apply", 
                "zoo",
                "splines",      
@@ -64,5 +65,9 @@ install_load(c("rio",
                "metafor",
                "Epi",
                "metR", 
-               "mvmeta"
+               "mvmeta",
+               "merTools",
+               "lme4",
+               "texreg",
+               "tictoc"
                ))
