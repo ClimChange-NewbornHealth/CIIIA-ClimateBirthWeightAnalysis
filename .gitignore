@@ -5,7 +5,8 @@
 .Ruserdata
 .DS_Store
 Temporal_project.Rproj
-/Data/
+/Data/Output/
+/Data/layer_koppen_20220309023154/
 /Contrato/
 /Products/
 /_extensions/
