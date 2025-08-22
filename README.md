@@ -1,6 +1,7 @@
 
 #  From the Atacama to Patagonia: understanding the effects of extreme temperatures on birth weight across climate regions in Chile. :baby:
 
+[![DOI](https://zenodo.org/badge/772546155.svg)](https://doi.org/10.5281/zenodo.16929324)
 ![GitHub Repo stars](https://img.shields.io/github/stars/ClimChange-NewbornHealth/CIIIA-ClimateBirthWeightAnalysis)
 ![GitHub watchers](https://img.shields.io/github/watchers/ClimChange-NewbornHealth/CIIIA-ClimateBirthWeightAnalysis)
 ![GitHub forks](https://img.shields.io/github/forks/ClimChange-NewbornHealth/CIIIA-ClimateBirthWeightAnalysis)
