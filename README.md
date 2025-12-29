@@ -39,6 +39,10 @@
 
 ![code](https://skillicons.dev/icons?i=r) **Data and Code**: You can run code 7.0 to 10.0 with the data table `births_2011_2020_weeks_temp_analysis.RData` downloading the data table [here](https://www.dropbox.com/scl/fi/6ngi8nfcszc0p86ozcgs2/births_2011_2020_weeks_temp_analysis.RData?rlkey=m7qdpqsy0ffx7s6g7r3hbl440&st=rl1uwsqc&dl=0).
 
+## :pushpin: Publication
+
+Blanco, E., Conejeros, J. D., Rubilar, P., Jiménez, R., Guiñez, P., Matute, M. I., & Smith, P. (2025). From the atacama to patagonia: Understanding the effects of extreme temperatures on birth weight across climate regions in Chile. GeoHealth, 9, e2025GH001444. https://doi.org/10.1029/2025GH001444
+
 ## Principal Findings :sunny: :snowflake:
 
 **Figure 1.** Estimated differences in mean term birth weight (g) and 95% confidence intervals according to climate zone-specific centiles of average daily mean, minimum and maximum temperature relative to the reference category (41st–50th centile) among singleton term live births during the entire pregnancy (panel A, C, E) and by trimester (panel B, D, F) in Chile during the period 2011–2020. 
