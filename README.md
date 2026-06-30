@@ -27,8 +27,6 @@
 
 :mailbox_with_mail: José Daniel Conejeros (<jdconejeros@uc.cl>) - **Research Collaborator - Repository Manager**
 
-:pushpin: Paper: -*Currently under review*-
-
 :pushpin: **Background**: Exposure to extreme temperatures during pregnancy can have adverse effects on birth weight, however, there is little evidence from Latin America.
 
 :pushpin: **Objective**: Evaluate the association between exposure to ambient temperatures during pregnancy and birth weight in full-term infants.
